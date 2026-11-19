@@ -77,6 +77,7 @@ def main() -> None:
         t = t.replace('var W = "' + WEEBLY + '";', 'var W = "";')
         t = t.replace(WEEBLY + "/", "/")                      # any other link to a RAMS Finance page
         t = t.replace('"assets/img/csu-ram.webp"', '"/files/theme/favicon.png"')
+        t = t.replace('"assets/docs/', '"https://isaiah30333.github.io/summit-fund/assets/docs/')   # PDFs stay on GitHub
         if f == "config.js":
             t = t.replace('monogramImage: "/files/theme/favicon.png",',
                           'monogramImage: "/files/theme/favicon.png",\n  monogramZoom: 1,                // favicon.png is already cropped')

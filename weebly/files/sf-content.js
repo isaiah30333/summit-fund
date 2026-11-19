@@ -10,7 +10,7 @@
     apply: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Aoi1r3r_sUurITZ_8uz8i01x0i-QokBEvQXfnCEY7nZUM1cyWDYxMkdJTzBQUTNaRTNONUQ1OE5MUy4u",
     annualReport: W + "/uploads/5/9/1/6/59163295/summit_fund_annual_report_spring_2025.pdf",
     prospectus: W + "/files/theme/summit-prospectus.pdf",
-    recruitmentDeck: W + "/uploads/5/9/1/6/59163295/pioneer-summit_fund_recruitment_deck.pdf",
+    recruitmentDeck: "https://isaiah30333.github.io/summit-fund/assets/docs/pioneer-summit-recruitment-deck.pdf",   // updated Nov 19, 2026 (current recruitment team)
     constitution: W + "/uploads/5/9/1/6/59163295/finance_club_constitution_2024-2025.pdf",
     valuationLab: "https://coleschomer.com/summitforge/",
     linkedinPosts: "https://www.linkedin.com/company/summit-fund-csu-college-of-business/posts/?feedView=all",
