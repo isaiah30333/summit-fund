@@ -57,6 +57,21 @@
     icon.rel = "icon";
     icon.href = S.monogramImage;
     document.head.appendChild(icon);
+    // Browsers squash a non-square image into the tab. Redraw it as a round 64×64 icon,
+    // zoomed like the header badge so the logo fills it with its proportions kept.
+    var im = new Image();
+    im.onload = function () {
+      var n = 64, c = document.createElement("canvas"), g = c.getContext("2d");
+      c.width = c.height = n;
+      var z = S.monogramZoom || 1.82;
+      var s = Math.min(n / im.naturalWidth, n / im.naturalHeight) * z;
+      var w = im.naturalWidth * s, h = im.naturalHeight * s;
+      g.imageSmoothingQuality = "high";
+      g.beginPath(); g.arc(n / 2, n / 2, n / 2, 0, 2 * Math.PI); g.clip();
+      g.drawImage(im, (n - w) / 2, (n - h) / 2, w, h);
+      try { icon.type = "image/png"; icon.href = c.toDataURL("image/png"); } catch (e) {}
+    };
+    im.src = S.monogramImage;
   }
 
   /* ---------- helpers ---------- */
