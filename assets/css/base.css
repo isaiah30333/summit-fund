@@ -373,3 +373,8 @@ a.card:hover, .card.hover:hover { border-color: var(--border-strong); box-shadow
   .is-rolled .roll-in { transform: none; }
   * { scroll-behavior: auto !important; }
 }
+
+/* TradingView widgets are transparent iframes. Chrome paints a solid white backdrop behind an
+   iframe whose color scheme differs from the page's, so after switching to dark mode the ticker
+   band stayed white. The widget pages don't declare a scheme (light), so match it on the iframe. */
+.tradingview-widget-container iframe { color-scheme: light; }
