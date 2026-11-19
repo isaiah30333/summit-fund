@@ -36,6 +36,22 @@
 .card.name-card { padding: 18px 20px; gap: 6px; }
 .name-card h3 { margin: 0; font-size: 1rem; }
 .name-card p { font-size: .85rem; }
+/* alumni firms: half name + note, half logo (logo always in full color) */
+.firm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; }
+.card.firm-card { display: grid; grid-template-columns: 1fr 1fr; padding: 0; gap: 0; min-height: 104px; }
+.firm-text { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 16px 18px; min-width: 0; }
+.firm-text h3 { margin: 0; font-size: 1rem; }
+.firm-text p { margin: 0; flex: 0; font-size: .82rem; line-height: 1.4; }
+.firm-logo {
+  display: grid; place-items: center; padding: 14px 18px;
+  background: #ffffff;                       /* white plate in both themes keeps brand colors true */
+  border-left: 1px solid var(--border);
+}
+.firm-logo img { max-width: 100%; max-height: 38px; width: auto; height: auto; object-fit: contain; }
+.firm-word { font-family: var(--font-heading); font-weight: 700; font-size: .95rem; letter-spacing: -0.01em; color: #1a1a1a; text-align: center; line-height: 1.15; }
+.firm-card::after { right: auto; left: -30%; }  /* hover glow on the text side, not behind the logo plate */
+.firm-card:hover .firm-logo { border-left-color: var(--accent); }
+
 .donor-thanks { max-width: 62ch; color: var(--text-muted); margin: -16px 0 24px; }
 .donor-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 0 28px; }
 .donor-list li { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
@@ -86,3 +102,4 @@
 }
 .sym-btn:hover { border-color: var(--accent); color: var(--accent); }
 .sym-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.firm-logo--square img { max-height: 60px; }   /* square marks (Goldman, NEPC, RBC) need more height to read */
