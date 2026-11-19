@@ -320,7 +320,6 @@ code { border-bottom-width: 1px; }
 .markets-head p { margin: 0; }
 .head-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-.tape { height: 46px; border-bottom: 1px solid var(--border); overflow: hidden; }
 
 .live-pill {
   display: inline-flex;
@@ -426,7 +425,7 @@ code { border-bottom-width: 1px; }
 .range-labels > span:nth-child(2) { order: 3; flex-basis: 100%; text-align: center; }
 .pin-move { margin-top: auto; }   /* line up the move + range sections across cards */
 
-.chart-wrap { padding: 0; overflow: hidden; margin-bottom: 16px; scroll-margin-top: calc(var(--header-h) + 16px); }
+.chart-wrap { padding: 0; overflow: hidden; margin-bottom: 16px; scroll-margin-top: calc(var(--header-h) + var(--tape-h, 0px) + 16px); }
 .chart-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px 16px; flex-wrap: wrap; padding: 14px 20px; border-bottom: 1px solid var(--border); }
 .chart-em { font-size: .85rem; margin-right: auto; }
 .chart-tools { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; padding: 10px 20px; border-bottom: 1px solid var(--border); }

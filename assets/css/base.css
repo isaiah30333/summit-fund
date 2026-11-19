@@ -94,7 +94,7 @@
 
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + var(--tape-h, 0px) + 16px); }
 body {
   margin: 0;
   background: var(--bg);
@@ -144,7 +144,6 @@ p { margin: 0 0 1em; }
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--header-h);
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
@@ -152,8 +151,11 @@ p { margin: 0 0 1em; }
   transition: border-color .2s, background .2s;
 }
 .site-header.scrolled { border-bottom-color: var(--border); }
+/* live price band under the menu (part of the sticky header, so it follows you down the page) */
+:root.has-tape { --tape-h: 46px; }
+.site-header .tape { height: var(--tape-h, 46px); overflow: hidden; border-top: 1px solid var(--border); }
 .header-inner {
-  height: 100%;
+  height: var(--header-h);
   display: flex;
   align-items: center;
   gap: 24px;

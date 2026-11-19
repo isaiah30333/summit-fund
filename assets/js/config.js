@@ -33,5 +33,13 @@ window.SITE = {
   // S&P 500 heat map data: read live from Isaiah's site (updated every 30 min in market hours)
   heatmapUrl: "https://isaiah30333.github.io/data/heatmap.json",
 
+  // Live price band under the header on every page: the fund's holdings (TradingView symbols).
+  tickerTape: [
+    "NASDAQ:MSFT", "NYSE:TSM", "NASDAQ:NVDA", "NASDAQ:GOOGL", "NYSE:ANET", "NASDAQ:ASML", "NYSE:JPM",
+    "NYSE:NU", "NASDAQ:MU", "NYSE:RDDT", "NASDAQ:NTES", "NYSE:UBER", "NYSE:LLY", "NASDAQ:ARGX",
+    "NASDAQ:KNSA", "NYSE:V", "NYSE:FLS", "AMEX:CECO", "NASDAQ:META", "NYSE:EVR", "NYSE:MLI",
+    "NASDAQ:UAL", "AMEX:XLK", "AMEX:XLF", "AMEX:VHT"
+  ],
+
   footerNote: ""
 };

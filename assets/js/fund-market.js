@@ -44,15 +44,6 @@
     });
   }
 
-  function renderTape() {
-    var host = document.getElementById("tv-tape");
-    host.hidden = false;
-    tvEmbed(host, "embed-widget-ticker-tape.js", {
-      symbols: M.tape.map(function (p) { return { proName: p, title: p.split(":")[1] }; }),
-      showSymbolLogo: true, isTransparent: true, displayMode: "adaptive",
-      colorTheme: isDark() ? "dark" : "light", locale: "en"
-    });
-  }
 
   document.getElementById("sym-groups").addEventListener("click", function (e) {
     var b = e.target.closest("[data-sym]");
@@ -70,9 +61,9 @@
     return true;
   };
 
-  function onTheme() { renderChart(); renderTape(); }
+  function onTheme() { renderChart(); }
   new MutationObserver(onTheme).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", onTheme);
 
-  renderGroups(); renderChart(); renderTape();
+  renderGroups(); renderChart();
 })();

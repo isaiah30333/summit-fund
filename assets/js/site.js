@@ -59,6 +59,29 @@
   }
   var here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 
+  /* ---------- live ticker band (TradingView), part of the sticky header on every page ---------- */
+  var hasTape = Array.isArray(S.tickerTape) && S.tickerTape.length > 0;
+  if (hasTape) root.classList.add("has-tape");
+  var tapeTheme = "";
+  function renderTape() {
+    var host = document.getElementById("tv-tape");
+    if (!host) return;
+    var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    var theme = dark ? "dark" : "light";
+    if (theme === tapeTheme) return;                  // only re-embed when the colors change
+    tapeTheme = theme;
+    host.innerHTML = '<div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div></div>';
+    var s = document.createElement("script");
+    s.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    s.async = true;
+    s.text = JSON.stringify({
+      symbols: S.tickerTape.map(function (p) { return { proName: p, title: p.split(":").pop() }; }),
+      showSymbolLogo: true, isTransparent: true, displayMode: "adaptive", colorTheme: theme, locale: "en"
+    });
+    host.firstChild.appendChild(s);
+  }
+
   /* ---------- header ---------- */
   function renderHeader() {
     var el = document.getElementById("site-header");
@@ -89,7 +112,8 @@
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>' +
           "</button>" +
         "</div>" +
-      "</div>";
+      "</div>" +
+      (hasTape ? '<div class="tape" id="tv-tape" role="region" aria-label="Live prices"></div>' : "");
 
     // light/dark toggle
     document.getElementById("mode-toggle").addEventListener("click", function () {
@@ -98,7 +122,9 @@
       var next = dark ? "light" : "dark";
       applyMode(next);
       store("site-mode", next);
+      renderTape();
     });
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderTape);
 
     // mobile menu
     var btn = document.getElementById("menu-toggle");
@@ -265,6 +291,7 @@
 
   function init() {
     renderHeader();
+    renderTape();
     renderNextUp();
     renderFooter();
     fillPlaceholders();

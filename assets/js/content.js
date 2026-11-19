@@ -102,9 +102,6 @@
       /* ------------------------------------------------------------ Market */
       market: {
         head: { eyebrow: "Market", title: "Markets & holdings", text: "Fund holdings on the tape, macro and sector charts, and today's S&P 500." },
-        tape: ["NASDAQ:MSFT", "NYSE:TSM", "NASDAQ:NVDA", "NASDAQ:GOOGL", "NYSE:ANET", "NASDAQ:ASML", "NYSE:JPM", "NYSE:NU", "NASDAQ:MU",
-               "NYSE:RDDT", "NASDAQ:NTES", "NYSE:UBER", "NYSE:LLY", "NASDAQ:ARGX", "NASDAQ:KNSA", "NYSE:V", "NYSE:FLS", "AMEX:CECO",
-               "NASDAQ:META", "NYSE:EVR", "NYSE:MLI", "NASDAQ:UAL", "AMEX:XLK", "AMEX:XLF", "AMEX:VHT"],
         symbols: {
           Macro: [["AMEX:SPY", "SPY", "S&P 500 ETF"], ["NASDAQ:QQQ", "QQQ", "Nasdaq 100 ETF"], ["CAPITALCOM:SPX500", "SPX", "S&P 500"],
                   ["CAPITALCOM:US30", "DJI", "Dow 30"], ["CAPITALCOM:RTY", "RUT", "Russell 2000"], ["CAPITALCOM:VIX", "VIX", "Volatility"],
