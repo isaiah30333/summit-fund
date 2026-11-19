@@ -36,6 +36,8 @@ window.SITE = {
   heatmapUrl: "https://isaiah30333.github.io/data/heatmap.json",
   // candles + options-implied expected moves for the Market chart, built by the same data job
   emDataUrl: "https://isaiah30333.github.io/data/summit/",
+  // live trades for the Market chart's newest candle (free key from finnhub.io; visible in the page source)
+  finnhubKey: "dbukeh9r01qv51jc580gdbukeh9r01qv51jc5810",
 
   // Live price band under the header on every page: the fund's holdings (TradingView symbols).
   tickerTape: [

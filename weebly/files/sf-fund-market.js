@@ -154,19 +154,15 @@
     }
     return { mid: mid, up: up, lo: lo };
   }
-  // Intraday: VWAP restarts every session. Daily / weekly bars: a rolling 20-bar VWAP.
+  // VWAP the way TradingView draws it by default (anchor "Session", source hlc3): it restarts
+  // every trading day. On daily / weekly candles each candle is its own anchor period.
   function vwap(data, intraday) {
-    var out = [], pv = 0, vv = 0, day = null, win = [];
+    var out = [], pv = 0, vv = 0, day = null;
     data.forEach(function (b) {
       var tp = (b.high + b.low + b.close) / 3, v = b.volume || 0;
-      if (intraday) {
-        var d = Math.floor(b.time / 86400);
-        if (d !== day) { day = d; pv = 0; vv = 0; }
-        pv += tp * v; vv += v;
-      } else {
-        win.push([tp * v, v]); pv += tp * v; vv += v;
-        if (win.length > 20) { var o = win.shift(); pv -= o[0]; vv -= o[1]; }
-      }
+      var d = intraday ? Math.floor(b.time / 86400) : b.time;
+      if (d !== day) { day = d; pv = 0; vv = 0; }
+      pv += tp * v; vv += v;
       if (vv > 0) out.push({ time: b.time, value: pv / vv });
     });
     return out;
@@ -174,6 +170,7 @@
 
   /* ---------- the chart (Lightweight Charts) ---------- */
   var chart = null, candles = null, ta = null, emLines = [], em = { lo: null, hi: null }, mode = "", req = 0;
+  var liveFull = null, liveInfo = null;             // the charted candles, extended by live trades
 
   function theme(intraday) {
     return {
@@ -230,7 +227,6 @@
     ensureTA();
     var up = alpha(cssVar("--up"), 0.45), down = alpha(cssVar("--down"), 0.45);
     ta.vol.setData(hasVol ? data.map(function (b) { return { time: b.time, value: b.volume, color: b.close >= b.open ? up : down }; }) : []);
-    ta.vwap.applyOptions({ title: intraday ? "VWAP" : "VWAP 20" });
     ta.vwap.setData(hasVol ? vwap(data, intraday) : []);
     ta.ema.setData(ema(data, 50));
     ta.sma.setData(sma(data, 50));
@@ -241,7 +237,7 @@
     var el = document.getElementById("chart-legend");
     if (!el) return;
     if (st.view === "technicals") {
-      el.innerHTML = (hasVol ? '<span class="lg ta-vol">▮ Volume</span> <span class="lg ta-vwap">— ' + (intraday ? "VWAP" : "VWAP 20") + "</span> " : "") +
+      el.innerHTML = (hasVol ? '<span class="lg ta-vol">▮ Volume</span> <span class="lg ta-vwap">— ' + "VWAP</span> " : "") +
         '<span class="lg ta-ema">— EMA 50</span> <span class="lg ta-sma">— SMA 50</span> <span class="lg ta-bb">— BB 20, 2</span>';
     } else if (!hasEM) {
       el.innerHTML = "";
@@ -269,6 +265,8 @@
     candles.setData(data);
     drawTA(full, intraday, hasVol);
     legend(intraday, hasVol, b.high != null);
+    liveFull = full; liveInfo = { sym: t.symbol, intraday: intraday, hasVol: hasVol };
+    Live.watch(t.symbol);
 
     if (b.high != null) {
       var h = HORIZON[st.tf];
@@ -281,7 +279,71 @@
     else chart.timeScale().fitContent();
   }
 
+  /* ---------- live trades (Finnhub websocket), for the charted symbol ----------
+     The data job refreshes every 30 minutes; between runs the newest candle, its volume and the
+     indicators follow live trades. The free feed carries US stocks/ETFs and crypto, so indexes,
+     futures and foreign markets update with the data job only. */
+  var FH = { SPY: "SPY", QQQ: "QQQ", BTC: "BINANCE:BTCUSDT", XLK: "XLK", XLC: "XLC", XLY: "XLY", XLP: "XLP",
+             XLF: "XLF", XLV: "XLV", XLI: "XLI", XLE: "XLE", XLU: "XLU", XLRE: "XLRE", XLB: "XLB" };
+  var etFmt = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit",
+    day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+  function etSeconds(ms) {                           // New York wall-clock time as UTC seconds (like the candle files)
+    var p = {};
+    etFmt.formatToParts(new Date(ms)).forEach(function (x) { p[x.type] = x.value; });
+    return Date.UTC(+p.year, +p.month - 1, +p.day, (+p.hour) % 24, +p.minute, +p.second) / 1000;
+  }
+  function marketOpen(sym) {
+    if (sym === "BTC") return true;                  // trades around the clock
+    var p = {};
+    etFmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+    var wd = new Date(Date.UTC(+p.year, +p.month - 1, +p.day)).getUTCDay(), m = (+p.hour % 24) * 60 + (+p.minute);
+    return wd >= 1 && wd <= 5 && m >= 570 && m < 960;
+  }
+  var Live = (function () {
+    var KEY = (window.SITE && window.SITE.finnhubKey) || "", ws = null, sub = null, retry = 0, pend = null, timer = 0;
+    function send(type, s) { if (ws && ws.readyState === 1 && s) ws.send(JSON.stringify({ type: type, symbol: s })); }
+    function connect() {
+      if (!KEY || !("WebSocket" in window) || ws) return;
+      try { ws = new WebSocket("wss://ws.finnhub.io?token=" + encodeURIComponent(KEY)); } catch (e) { return; }
+      ws.onopen = function () { retry = 0; send("subscribe", sub); };
+      ws.onmessage = function (ev) {
+        var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+        if (m.type !== "trade" || !m.data) return;
+        m.data.forEach(function (tr) {
+          if (tr.s !== sub || !(tr.p > 0)) return;
+          pend = pend || { vol: 0 };
+          pend.price = tr.p; pend.ts = tr.t; pend.vol += tr.v || 0;
+        });
+        if (pend && !timer) timer = setTimeout(apply, 500);   // batch trades: at most two redraws a second
+      };
+      ws.onclose = function () { ws = null; setTimeout(connect, Math.min(30000, 1000 * Math.pow(2, retry++))); };
+      ws.onerror = function () { try { ws.close(); } catch (e) {} };
+    }
+    function apply() {
+      timer = 0;
+      var P = pend; pend = null;
+      if (!P || !liveFull || !liveFull.length || !candles || mode !== "lw" || !liveInfo || !marketOpen(liveInfo.sym)) return;
+      var t = bucketStart(etSeconds(P.ts), st.iv), last = liveFull[liveFull.length - 1];
+      if (t < last.time) return;
+      if (t > last.time) { last = { time: t, open: P.price, high: P.price, low: P.price, close: P.price, volume: 0 }; liveFull.push(last); }
+      last.high = Math.max(last.high, P.price); last.low = Math.min(last.low, P.price); last.close = P.price;
+      last.volume += P.vol;
+      candles.update({ time: last.time, open: last.open, high: last.high, low: last.low, close: last.close });
+      if (st.view === "technicals") drawTA(liveFull, liveInfo.intraday, liveInfo.hasVol);
+    }
+    return {
+      watch: function (sym) {                        // follow only the charted symbol
+        var s = FH[sym] || null;
+        if (s === sub) return;
+        send("unsubscribe", sub);
+        sub = s; pend = null;
+        if (s) { connect(); send("subscribe", s); }
+      }
+    };
+  })();
+
   function drawTV() {                                // TradingView's own chart (no data file for this symbol)
+    Live.watch(null);
     dropLW();
     mode = "tv";
     var th = isDark() ? "dark" : "light";
