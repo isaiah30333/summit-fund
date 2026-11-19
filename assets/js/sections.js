@@ -38,7 +38,7 @@
   /* ---------- section types ---------- */
   var R = {
     cards: function (s) {
-      return wrap(s, '<div class="about-grid">' + s.cards.map(function (c, i) {
+      return wrap(s, '<div class="about-grid' + (s.cols === 2 ? " about-grid--2" : "") + '">' + s.cards.map(function (c, i) {
         var cls = "about-card reveal" + (c.wide ? " about-wide" : "") + (c.full ? " about-full" : "");
         var items = c.items.map(function (x) {
           return "<li>" + (typeof x === "string" ? fmt(x) : '<a class="inline-link" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.label) + " ↗</a>") + "</li>";
@@ -108,7 +108,7 @@
         return '<div class="card project link-card reveal' + (c.full ? " span-full" : "") + '"' + d(i) + ">" +
           (c.img ? '<img class="link-logo" src="' + esc(c.img) + '" alt="" loading="lazy">' : "") +
           '<span class="tag">' + esc(c.tag) + "</span><h3>" + esc(c.name) + '</h3><p class="muted">' + fmt(c.detail) + "</p>" +
-          '<div class="link-row">' + (c.url ? '<a class="card-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">Visit site ↗</a>' : "") + aux + "</div></div>";
+          '<div class="link-row">' + (c.url ? '<a class="card-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.linkLabel || "Visit site") + ' ↗</a>' : "") + aux + "</div></div>";
       }).join("") + "</div>");
     },
 

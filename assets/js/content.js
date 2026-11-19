@@ -151,9 +151,20 @@
         sections: [
           { type: "links", eyebrow: "Featured", title: "Featured this year", cards: [
             { name: "Rams on Wall Street", tag: "Back this year", img: "assets/img/csu-ram.webp",
-              detail: "Led by **Dr. Hilla Skiba**, Rams on Wall Street is back for the first time in a while. Details coming soon." },
+              url: "https://biz.colostate.edu/academics/undergraduate-programs/bsba/concentrations/finance", linkLabel: "Finance at CSU",
+              detail: "A selective program from the Department of Finance & Real Estate that takes top CSU finance students to New York to see institutional finance firsthand. Led by **Dr. Hilla Skiba** and back for the first time in a while." },
             { name: "Rocky Mountain Investment Challenge", tag: "Competition", img: W + "/files/theme/rmic.png", url: "https://rockymountaininvestmentchallenge.com/",
               detail: "Founded by CSU, CU Boulder, and the University of Denver, with a $10,000 first prize." }
+          ]},
+          { type: "cards", cols: 2, eyebrow: "Rams on Wall Street", title: "Inside the program", cards: [
+            { title: "Site visits", items: ["Tours of investment banks, private equity firms, hedge funds, asset managers and trading desks across Manhattan"] },
+            { title: "Networking", items: ["Roundtables, pitch critiques and Q&A panels with senior Wall Street leaders, portfolio managers and CSU alumni in New York"] },
+            { title: "Career exploration", items: ["Connects FIN 300, 310 and 355 to front-office roles: investment banking, sales & trading, equity research and asset management"] },
+            { title: "Recruiting", items: ["A direct bridge to competitive New York summer analyst internships and full-time analyst roles"] }
+          ]},
+          { type: "cards", cols: 2, eyebrow: "Together", title: "How it connects to the Summit Fund", cards: [
+            { title: "Summit Fund: the skills", items: ["DCF valuation and comps modeling", "Pitch presentations to the full fund", "Bloomberg portfolio management in the Halley Finance Data Lab"] },
+            { title: "Rams on Wall Street: the network", items: ["Industry exposure on the Street", "Direct connections with institutional investors", "A pipeline into New York analyst roles"] }
           ]},
           { type: "links", eyebrow: "Compete", title: "Competitions", cards: [
             { name: "CFA Global Research Challenge", tag: "Equity research", url: "https://www.cfasociety.org/colorado/about/research-challenge",
