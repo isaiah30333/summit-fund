@@ -150,9 +150,9 @@
         head: { eyebrow: "Competitions", title: "Beyond the classroom", text: "Pitch competitions, trading challenges, summits, and the clubs that connect them." },
         sections: [
           { type: "links", eyebrow: "Featured", title: "Featured this year", cards: [
-            { name: "Rams on Wall Street", tag: "Back this year", img: "assets/img/csu-ram.webp",
+            { name: "Rams on Wall Street", tag: "New York", img: "assets/img/csu-ram.webp",
               url: "https://biz.colostate.edu/academics/undergraduate-programs/bsba/concentrations/finance", linkLabel: "Finance at CSU",
-              detail: "A selective program from the Department of Finance & Real Estate that takes top CSU finance students to New York to see institutional finance firsthand. Led by **Dr. Hilla Skiba** and back for the first time in a while." },
+              detail: "A selective program from the Department of Finance & Real Estate that takes top CSU finance students to New York to see institutional finance firsthand. Led by **Dr. Hilla Skiba**." },
             { name: "Rocky Mountain Investment Challenge", tag: "Competition", img: W + "/files/theme/rmic.png", url: "https://rockymountaininvestmentchallenge.com/",
               detail: "Founded by CSU, CU Boulder, and the University of Denver, with a $10,000 first prize." }
           ]},
