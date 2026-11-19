@@ -480,6 +480,17 @@ code { border-bottom-width: 1px; }
 .heat-legend { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 .heat-scale { width: 120px; height: 8px; border-radius: 999px; background: linear-gradient(90deg, rgb(214,58,58), rgb(64,68,82), rgb(34,166,90)); }
 .heat-note { margin: 0; padding: 10px 20px; border-top: 1px solid var(--border); }
+.heat-zoom { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.heat-zoom button {
+  min-width: 30px; height: 28px; padding: 0 10px;
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  background: var(--surface); color: var(--text);
+  font: inherit; font-size: .82rem; line-height: 1; cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.heat-zoom button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.heat-zoom button:disabled { opacity: .4; cursor: default; }
+.heat-zoom-level { font-size: .78rem; color: var(--text-muted); min-width: 34px; text-align: center; }
 .heat-tip {
   position: absolute; top: 0; left: 0; z-index: 2; pointer-events: none;
   min-width: 190px; max-width: 240px; padding: 10px 12px;
@@ -494,6 +505,12 @@ code { border-bottom-width: 1px; }
 .heat-tip-name { color: rgba(255,255,255,.7); margin: 2px 0 6px; }
 .heat-tip-row { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: .75rem; color: rgba(255,255,255,.8); }
 .heat-tip-row span:first-child { color: rgba(255,255,255,.5); }
+
+/* ---------- top stories + economic calendar ---------- */
+.feeds { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.feed { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.feed-body { height: 600px; }
+@media (max-width: 860px) { .feeds { grid-template-columns: 1fr; } .feed-body { height: 520px; } }
 
 .fineprint { font-size: .8rem; margin-top: 20px; max-width: 760px; }
 
