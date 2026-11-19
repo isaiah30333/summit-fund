@@ -73,10 +73,10 @@
           { type: "donors", eyebrow: "Donors", title: "Thank you to our donors",
             text: "The Summit Fund managers thank the donors who made this program possible and gave students the chance to learn portfolio management first-hand.",
             corporate: [
-              { name: "Hewlett-Packard", note: "Founding 1999 corporate supporter of the Summit Fund" },
-              { name: "First National Bank", note: "Northern Colorado banking partner and program supporter" },
-              { name: "Burke Cleaners", note: "Fort Collins community sponsor" },
-              { name: "Everitt Companies", note: "Robert & Joyce Everitt, 1999 founding Summit Fund endowment" }
+              { name: "Hewlett-Packard", logo: W + "/files/theme/hp-1999.svg", square: true, note: "Founding 1999 corporate supporter of the Summit Fund" },
+              { name: "First National Bank", logo: W + "/files/theme/first-national-bank.png", square: true, note: "Northern Colorado banking partner and program supporter" },
+              { name: "Burke Cleaners", logo: W + "/files/theme/burke-cleaners.png", square: true, note: "Fort Collins community sponsor" },
+              { name: "Everitt Companies", logo: W + "/files/theme/everitt-companies.png", square: true, note: "Robert & Joyce Everitt, 1999 founding Summit Fund endowment" }
             ],
             individual: [
               { name: "Robert & Joyce Everitt", note: "Everitt Companies, provided the 1999 founding endowment for the Summit Fund." },

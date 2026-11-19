@@ -22,6 +22,19 @@
   }
   function wrap(s, body) { return '<section class="section"><div class="container">' + head(s) + body + "</div></section>"; }
 
+  // Split cards for organizations (alumni firms, corporate donors): name + note on the left,
+  // the logo on the right, always in full color on a white plate. No logo file → text wordmark.
+  function firmGrid(items, extra) {
+    return '<div class="firm-grid' + (extra ? " " + extra : "") + '">' + items.map(function (n, i) {
+      var mark = n.logo
+        ? '<img src="' + esc(n.logo) + '" alt="' + esc(n.name) + ' logo" loading="lazy">'
+        : '<span class="firm-word">' + esc(n.name) + "</span>";
+      return '<div class="card project firm-card reveal"' + d(i) + ">" +
+        '<div class="firm-text"><h3>' + esc(n.name) + '</h3><p class="muted">' + esc(n.note) + "</p></div>" +
+        '<div class="firm-logo' + (n.square ? " firm-logo--square" : "") + '">' + mark + "</div></div>";
+    }).join("") + "</div>";
+  }
+
   /* ---------- section types ---------- */
   var R = {
     cards: function (s) {
@@ -53,18 +66,8 @@
     },
 
     names: function (s) {
-      // logos: true → split cards: name + note on the left, the firm's logo on the right
-      // (always full color on a white plate; a firm without a logo file gets a text wordmark)
-      if (s.logos) {
-        return wrap(s, '<div class="firm-grid">' + s.items.map(function (n, i) {
-          var mark = n.logo
-            ? '<img src="' + esc(n.logo) + '" alt="' + esc(n.name) + ' logo" loading="lazy">'
-            : '<span class="firm-word">' + esc(n.name) + "</span>";
-          return '<div class="card project firm-card reveal"' + d(i) + ">" +
-            '<div class="firm-text"><h3>' + esc(n.name) + '</h3><p class="muted">' + esc(n.note) + "</p></div>" +
-            '<div class="firm-logo' + (n.square ? " firm-logo--square" : "") + '">' + mark + "</div></div>";
-        }).join("") + "</div>");
-      }
+      // logos: true → split cards (see firmGrid)
+      if (s.logos) return wrap(s, firmGrid(s.items));
       return wrap(s, '<div class="name-grid">' + s.items.map(function (n, i) {
         return '<div class="card project name-card reveal"' + d(i) + "><h3>" + esc(n.name) + '</h3><p class="muted">' + esc(n.note) + "</p></div>";
       }).join("") + "</div>");
@@ -73,9 +76,7 @@
     donors: function (s) {
       return wrap(s,
         '<p class="donor-thanks reveal">' + fmt(s.text) + "</p>" +
-        '<div class="name-grid">' + s.corporate.map(function (n, i) {
-          return '<div class="card project name-card reveal"' + d(i) + '><span class="tag">Corporate</span><h3>' + esc(n.name) + '</h3><p class="muted">' + esc(n.note) + "</p></div>";
-        }).join("") + "</div>" +
+        firmGrid(s.corporate, "firm-grid--pair") +   // 4 donors: even 2 × 2
         '<ul class="donor-list reveal">' + s.individual.map(function (n) {
           return "<li><strong>" + esc(n.name) + "</strong><span>" + esc(n.note) + "</span></li>";
         }).join("") + "</ul>");
