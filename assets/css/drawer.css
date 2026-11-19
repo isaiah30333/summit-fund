@@ -1,0 +1,33 @@
+/* =====================================================================
+   RISING DRAWER (mockup): page content rides up over the heading photo
+   on one sheet with rounded top corners, like a drawer sliding up.
+   ===================================================================== */
+:root { --sheet-r: 28px; --sheet-lift: 56px; --sheet-shadow: 0 -18px 44px rgba(8, 10, 18, .22); }
+@media (max-width: 700px) { :root { --sheet-r: 22px; --sheet-lift: 40px; } }
+
+.sheet { position: relative; z-index: 1; isolation: isolate; margin-top: calc(-1 * var(--sheet-lift)); }
+
+/* the sheet's surface: full-bleed, even when the sheet sits inside a .container */
+.sheet::after {
+  content: ""; position: absolute; z-index: -1;
+  top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  background: var(--bg);
+  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
+  box-shadow: var(--sheet-shadow);
+  clip-path: inset(-80px 0 0 0);   /* shadow only above the sheet, never below it */
+}
+/* small grab handle at the top */
+.sheet::before {
+  content: ""; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 44px; height: 4px; border-radius: 999px; background: var(--border-strong);
+}
+
+/* Home: the hero photo runs under the sheet; quick facts sit at the top of the sheet */
+:root.has-hero-img .hero { padding-bottom: calc(var(--sheet-lift) + 72px); }
+.sheet > .container:first-child { padding-top: 40px; }
+.sheet .facts { margin-top: 0; margin-bottom: clamp(24px, 4vw, 48px); }
+:root.has-hero-img .sheet .facts > div { box-shadow: var(--shadow); }
+
+/* Inner pages: room under the page title for the sheet to overlap */
+:root.has-hero-img .page-head { padding-bottom: calc(36px + var(--sheet-lift)); margin-bottom: 0; }
+.sheet--page { padding-top: 40px; }

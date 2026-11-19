@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market · Summit Fund</title>
+  <meta name="description" content="Summit Fund: Colorado State University's student-run investment fund since 1999.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/base.css?v=mock1">
+  <link rel="stylesheet" href="assets/css/pages.css?v=mock1">
+  <link rel="stylesheet" href="assets/css/drawer.css?v=mock1">
+  <link rel="stylesheet" href="assets/css/sections.css?v=mock1">
+  <script src="assets/js/config.js?v=mock1"></script>
+  <script src="assets/js/site.js?v=mock1"></script>
+  <!-- the words on every page live in content.js -->
+  <script src="assets/js/content.js?v=mock1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/dist/d3-delaunay.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/dist/d3-hierarchy.min.js"></script>
+</head>
+<body>
+  <header class="site-header" id="site-header"></header>
+  <div class="tape" id="tv-tape" hidden></div>
+
+  <main class="container page">
+    <div class="page-head reveal" id="page-head"></div>
+    <div class="sheet sheet--page">
+      <section class="chart-wrap card" aria-label="Price chart">
+        <div class="chart-bar">
+          <div class="chart-title"><strong id="chart-sym">SPY</strong> <span class="muted" id="chart-name"></span></div>
+          <a class="muted small chart-tv" id="chart-tv" href="https://www.tradingview.com/" target="_blank" rel="noopener">Open in TradingView ↗</a>
+        </div>
+        <div class="sym-groups" id="sym-groups"></div>
+        <div id="tv-chart" class="tv-chart"></div>
+      </section>
+
+      <section class="heat-wrap card" id="heat" aria-label="S&amp;P 500 heat map" hidden>
+        <div class="chart-bar">
+          <div class="chart-title"><strong>S&amp;P 500 heat map</strong> <span class="muted small" id="heat-meta"></span></div>
+          <div class="heat-legend mono small" aria-hidden="true"><span>−3%</span><span class="heat-scale"></span><span>+3%</span></div>
+        </div>
+        <div class="heat-stage" id="heat-stage">
+          <canvas id="heat-canvas" role="img" aria-label="S&amp;P 500 heat map"></canvas>
+          <div class="heat-tip" id="heat-tip" hidden></div>
+        </div>
+        <p class="heat-note muted small">Cell size = weight in the S&amp;P 500, color = today's change. Click a stock to chart it above.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="assets/js/sections.js?v=mock1" data-page="market"></script>
+  <script src="assets/js/fund-market.js?v=mock1"></script>
+  <script src="assets/js/heatmap.js?v=mock1"></script>
+</body>
+</html>
