@@ -26,6 +26,8 @@
   var ctx = canvas.getContext("2d");
   var still = document.createElement("canvas");        // the visible map at the current zoom
   var sctx = still.getContext("2d");
+  var world = document.createElement("canvas");        // the whole map at 1×, painted once per layout
+  var snap = document.createElement("canvas");         // the sharp view when a zoom/drag gesture began
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var BG = "#0c0b10";
@@ -48,6 +50,8 @@
   var view = { k: 1, x: 0, y: 0 };    // screen = world × k + (x, y)
   var hover = null, pointer = null, last = null, trail = [], raf = 0, tappedSym = null;
   var drag = null, suppressClick = false, repaintPending = false;
+  var live = null, settleT = 0, showPending = false;   // live = a zoom/drag in progress
+  var viewAtStill = { k: 1, x: 0, y: 0 };              // the view the offscreen map was drawn for
 
   /* ---------- color: red ← gray → green, saturating at ±3% ---------- */
   var NEU = [64, 68, 82], RED = [214, 58, 58], GRN = [34, 166, 90];
@@ -84,8 +88,9 @@
     if (nw !== W || nh !== H) view = { k: 1, x: 0, y: 0 };   // keep the zoom on a data refresh
     W = nw; H = nh;
     dpr = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = still.width = W * dpr;
-    canvas.height = still.height = H * dpr;
+    canvas.width = still.width = world.width = snap.width = W * dpr;
+    canvas.height = still.height = world.height = snap.height = H * dpr;
+    live = null;
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
 
     var bySec = {};
@@ -121,6 +126,7 @@
         var cell = { s: s, sec: secObj, poly: poly.slice(0, n), cx: cx, cy: cy,
                      x0: minX, y0: minY, x1: maxX, y1: maxY, w: maxX - minX, h: maxY - minY,
                      color: colorFor(s.cp), glow: 0, target: 0, label: null, labelK: 0 };
+        measureCell(cell);
         cells.push(cell); secObj.cells[i] = cell;
         wSum += s.w; cpSum += s.w * s.cp;
       });
@@ -129,6 +135,7 @@
     });
 
     clampView();
+    paintWorld();
     paintStill();
     frame();
     updateZoomUI();
@@ -139,24 +146,29 @@
   // zoom moves into a new bucket, not on every scroll tick.
   function bucket(k) { return Math.pow(1.15, Math.round(Math.log(k) / Math.log(1.15))); }
 
+  // Text width grows in step with font size, so each line is measured once (width per px
+  // of font) and the best size is worked out directly instead of trying sizes one by one.
+  function measureCell(c) {
+    c.lines = [c.s.s, pct(c.s.cp), "$" + c.s.p.toFixed(2)];
+    sctx.font = "700 100px " + SANS;
+    var m0 = sctx.measureText(c.lines[0]).width / 100;
+    sctx.font = "500 72px " + MONO;
+    c.m = [m0, sctx.measureText(c.lines[1]).width / 100, sctx.measureText(c.lines[2]).width / 100];
+    c.label = null; c.labelK = 0;
+  }
+
   // biggest font where every line fits; drop price, then %, when it can't.
   // Returns the font size in world units (it's drawn under the zoom transform).
   function fitLabel(c, kb) {
     var w = c.w * kb, h = c.h * kb;
     if (Math.min(w, h) < 22) return null;
-    var lines = [c.s.s, pct(c.s.cp), "$" + c.s.p.toFixed(2)];
     var start = Math.min(26, Math.min(w, h) / 3.4);
-    while (lines.length) {
-      var maxW = w * (lines.length === 3 ? 0.6 : 0.7), maxH = h * (lines.length === 3 ? 0.55 : 0.6);
-      for (var f = start; f >= 8.5; f -= 0.5) {
-        var lh = f * 1.12, wide = 0;
-        for (var i = 0; i < lines.length; i++) {
-          sctx.font = i ? "500 " + f * 0.72 + "px " + MONO : "700 " + f + "px " + SANS;
-          wide = Math.max(wide, sctx.measureText(lines[i]).width);
-        }
-        if (wide <= maxW && lines.length * lh <= maxH) return { fs: f / kb, lines: lines.slice() };
-      }
-      lines.pop();
+    for (var n = 3; n >= 1; n--) {
+      var maxW = w * (n === 3 ? 0.6 : 0.7), maxH = h * (n === 3 ? 0.55 : 0.6);
+      var per = Math.max.apply(null, c.m.slice(0, n));
+      var f = Math.min(start, maxW / per, maxH / (n * 1.12));
+      f = start - Math.ceil((start - f) * 2) / 2;            // same half-px steps as before
+      if (f >= 8.5) return { fs: f / kb, lines: c.lines.slice(0, n) };
     }
     return null;
   }
@@ -242,6 +254,7 @@
 
   // visible map → offscreen canvas (whenever the view changes)
   function paintStill() {
+    viewAtStill = { k: view.k, x: view.x, y: view.y };
     ensureLabels();
     sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     sctx.fillStyle = BG;
@@ -251,10 +264,33 @@
     drawSectorLabels(sctx);
   }
 
+  // the whole map at 1× (used to fill the edges while zooming out or dragging)
+  function paintWorld() {
+    var v = view;
+    view = { k: 1, x: 0, y: 0 };
+    paintStill();
+    var g = world.getContext("2d");
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.drawImage(still, 0, 0);
+    view = v;
+  }
+
   // per frame: paste the visible map, then redraw only what the wake / glow touches
   function frame() {
     var now = performance.now();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (live) {
+      // mid-gesture: scale the pictures we already have instead of redrawing 500 cells.
+      // The sharp redraw happens once the zoom/drag stops (settle).
+      ctx.fillStyle = BG;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(view.k, 0, 0, view.k, view.x * dpr, view.y * dpr);
+      ctx.drawImage(world, 0, 0);
+      var r = view.k / live.k;
+      ctx.setTransform(r, 0, 0, r, (view.x - live.x * r) * dpr, (view.y - live.y * r) * dpr);
+      ctx.drawImage(snap, 0, 0);
+      return;
+    }
     ctx.drawImage(still, 0, 0);
     var moving = trail.length > 0;
     var active = cells.filter(function (c) { return c.glow > 0.004 || c === hover; });
@@ -292,8 +328,24 @@
   function repaint() {                                    // view changed: redraw on the next frame
     if (repaintPending) return;
     repaintPending = true;
-    requestAnimationFrame(function () { repaintPending = false; paintStill(); frame(); updateZoomUI(); });
+    requestAnimationFrame(function () { repaintPending = false; live = null; paintStill(); frame(); updateZoomUI(); });
   }
+
+  // zoom/drag in progress: show the scaled picture now, redraw sharp once it stops
+  function moved() {
+    if (!live) {
+      var g = snap.getContext("2d");
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.drawImage(still, 0, 0);
+      live = { k: viewAtStill.k, x: viewAtStill.x, y: viewAtStill.y };
+    }
+    clearTimeout(settleT);
+    settleT = setTimeout(settle, 140);
+    if (showPending) return;
+    showPending = true;
+    requestAnimationFrame(function () { showPending = false; frame(); updateZoomUI(); });
+  }
+  function settle() { clearTimeout(settleT); if (live) repaint(); }
 
   /* ---------- animation loop: runs only while something is moving ---------- */
   function tick() {
@@ -326,8 +378,8 @@
     view.y = y - w[1] * nk;
     clampView();
     trail = [];                                         // the old wake belongs to the old view
-    tip.hidden = true;
-    repaint();
+    hover = null; tip.hidden = true;
+    moved();
     return true;
   }
   function resetZoom() { view = { k: 1, x: 0, y: 0 }; trail = []; repaint(); }
@@ -414,7 +466,7 @@
       }
       if (drag.moved) {
         view.x = drag.vx + mx; view.y = drag.vy + my;
-        clampView(); repaint();
+        clampView(); moved();
         return;
       }
     }
@@ -434,7 +486,7 @@
     kick();
   });
   function endDrag(e) {
-    if (drag && drag.moved) { suppressClick = true; updateZoomUI(); }
+    if (drag && drag.moved) { suppressClick = true; settle(); }
     drag = null;
   }
   canvas.addEventListener("pointerup", endDrag);
@@ -503,7 +555,8 @@
   // fonts arrive after the first paint: re-measure labels and repaint once they do
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
     if (!data) return;
-    cells.forEach(function (c) { c.labelK = 0; });
+    cells.forEach(measureCell);
+    paintWorld();
     repaint();
   });
 
