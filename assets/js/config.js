@@ -33,6 +33,8 @@ window.SITE = {
   fonts: { heading: "Inter Tight", body: "Inter", mono: "JetBrains Mono" },
   // S&P 500 heat map data: read live from Isaiah's site (updated every 30 min in market hours)
   heatmapUrl: "https://isaiah30333.github.io/data/heatmap.json",
+  // candles + options-implied expected moves for the Market chart, built by the same data job
+  emDataUrl: "https://isaiah30333.github.io/data/summit/",
 
   // Live price band under the header on every page: the fund's holdings (TradingView symbols).
   tickerTape: [

@@ -7,14 +7,16 @@
   <meta name="description" content="Summit Fund: Colorado State University's student-run investment fund since 1999.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="assets/css/base.css?v=mock20">
-  <link rel="stylesheet" href="assets/css/pages.css?v=mock20">
-  <link rel="stylesheet" href="assets/css/drawer.css?v=mock20">
-  <link rel="stylesheet" href="assets/css/sections.css?v=mock20">
-  <script src="assets/js/config.js?v=mock20"></script>
-  <script src="assets/js/site.js?v=mock20"></script>
+  <link rel="stylesheet" href="assets/css/base.css?v=mock21">
+  <link rel="stylesheet" href="assets/css/pages.css?v=mock21">
+  <link rel="stylesheet" href="assets/css/drawer.css?v=mock21">
+  <link rel="stylesheet" href="assets/css/sections.css?v=mock21">
+  <script src="assets/js/config.js?v=mock21"></script>
+  <script src="assets/js/site.js?v=mock21"></script>
   <!-- the words on every page live in content.js -->
-  <script src="assets/js/content.js?v=mock20"></script>
+  <script src="assets/js/content.js?v=mock21"></script>
+  <!-- TradingView's open-source charting library: candles with the expected-move lines -->
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/dist/d3-delaunay.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/dist/d3-hierarchy.min.js"></script>
 </head>
@@ -27,13 +29,32 @@
       <section class="chart-wrap card" aria-label="Price chart">
         <div class="chart-bar">
           <div class="chart-title"><strong id="chart-sym">SPY</strong> <span class="muted" id="chart-name"></span></div>
+          <div class="chart-em mono" id="chart-em"></div>
+          <a class="muted small chart-tv" id="chart-tv" href="https://www.tradingview.com/" target="_blank" rel="noopener">Open in TradingView ↗</a>
+        </div>
+        <div class="sym-groups" id="sym-groups"></div>
+        <div class="chart-tools">
+          <div class="seg seg-sm" id="iv-seg" role="group" aria-label="Candle interval">
+            <button type="button" data-iv="1m">1m</button>
+            <button type="button" data-iv="3m">3m</button>
+            <button type="button" data-iv="5m">5m</button>
+            <button type="button" data-iv="15m">15m</button>
+            <button type="button" data-iv="1h">1h</button>
+            <button type="button" data-iv="4h">4h</button>
+            <button type="button" data-iv="1D">1D</button>
+            <button type="button" data-iv="1W">1W</button>
+          </div>
+          <div class="seg seg-sm" id="hz-seg" role="group" aria-label="Expected move horizon">
+            <button type="button" data-tf="daily">Daily</button>
+            <button type="button" data-tf="weekly">Weekly</button>
+            <button type="button" data-tf="monthly">Monthly</button>
+          </div>
           <div class="seg seg-sm view-seg" id="view-seg" role="group" aria-label="Chart view">
             <button type="button" data-view="overview">Overview</button>
             <button type="button" data-view="technicals" title="Volume, VWAP, 50 EMA, 50 SMA, Bollinger Bands">Technicals</button>
           </div>
-          <a class="muted small chart-tv" id="chart-tv" href="https://www.tradingview.com/" target="_blank" rel="noopener">Open in TradingView ↗</a>
+          <span class="muted small chart-legend" id="chart-legend"></span>
         </div>
-        <div class="sym-groups" id="sym-groups"></div>
         <div id="tv-chart" class="tv-chart"></div>
       </section>
 
@@ -64,9 +85,9 @@
   </main>
 
   <footer class="site-footer" id="site-footer"></footer>
-  <script src="assets/js/sections.js?v=mock20" data-page="market"></script>
-  <script src="assets/js/fund-market.js?v=mock20"></script>
-  <script src="assets/js/heatmap.js?v=mock20"></script>
-  <script src="assets/js/market-feeds.js?v=mock20"></script>
+  <script src="assets/js/sections.js?v=mock21" data-page="market"></script>
+  <script src="assets/js/fund-market.js?v=mock21"></script>
+  <script src="assets/js/heatmap.js?v=mock21"></script>
+  <script src="assets/js/market-feeds.js?v=mock21"></script>
 </body>
 </html>
