@@ -108,7 +108,7 @@
         return '<div class="card project link-card reveal' + (c.full ? " span-full" : "") + '"' + d(i) + ">" +
           (c.img ? '<img class="link-logo" src="' + esc(c.img) + '" alt="" loading="lazy">' : "") +
           '<span class="tag">' + esc(c.tag) + "</span><h3>" + esc(c.name) + '</h3><p class="muted">' + fmt(c.detail) + "</p>" +
-          '<div class="link-row"><a class="card-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">Visit site ↗</a>' + aux + "</div></div>";
+          '<div class="link-row">' + (c.url ? '<a class="card-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">Visit site ↗</a>' : "") + aux + "</div></div>";
       }).join("") + "</div>");
     },
 

@@ -5,6 +5,7 @@ window.SITE = {
   name: "Summit Fund",
   tagline: "CSU College of Business · Since 1999",
   monogram: "SF",
+  monogramImage: "assets/img/csu-ram.webp",   // CSU Ram in the header icon and browser tab
 
   email: "Hilla.Skiba@colostate.edu",
   linkedin: "https://www.linkedin.com/company/summit-fund-csu-college-of-business/",

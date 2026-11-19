@@ -51,6 +51,14 @@
     if (f.mono) root.style.setProperty("--font-mono", '"' + f.mono + '"');
   }
 
+  /* ---------- browser-tab icon: the header logo image, when one is set ---------- */
+  if (S.monogramImage) {
+    var icon = document.createElement("link");
+    icon.rel = "icon";
+    icon.href = S.monogramImage;
+    document.head.appendChild(icon);
+  }
+
   /* ---------- helpers ---------- */
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -98,7 +106,9 @@
     el.innerHTML =
       '<div class="header-inner container">' +
         '<a class="brand" href="index.html">' +
-          '<span class="brand-mark" aria-hidden="true">' + esc(S.monogram || (S.name || "?").charAt(0)) + "</span>" +
+          (S.monogramImage   // a logo image in the header icon instead of letters
+            ? '<span class="brand-mark brand-mark--img" aria-hidden="true"><img src="' + esc(S.monogramImage) + '" alt=""></span>'
+            : '<span class="brand-mark" aria-hidden="true">' + esc(S.monogram || (S.name || "?").charAt(0)) + "</span>") +
           '<span class="brand-name">' + esc(S.name || "Site") + "</span>" +
         "</a>" +
         '<nav class="nav" id="site-nav" aria-label="Main">' + links + "</nav>" +

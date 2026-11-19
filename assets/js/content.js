@@ -149,9 +149,11 @@
       competitions: {
         head: { eyebrow: "Competitions", title: "Beyond the classroom", text: "Pitch competitions, trading challenges, summits, and the clubs that connect them." },
         sections: [
-          { type: "links", eyebrow: "Featured", title: "Rocky Mountain Investment Challenge", cards: [
-            { name: "Rocky Mountain Investment Challenge", tag: "Featured", img: W + "/files/theme/rmic.png", url: "https://rockymountaininvestmentchallenge.com/",
-              detail: "Founded by CSU, CU Boulder, and the University of Denver, with a $10,000 first prize.", full: true }
+          { type: "links", eyebrow: "Featured", title: "Featured this year", cards: [
+            { name: "Rams on Wall Street", tag: "Back this year", img: "assets/img/csu-ram.webp",
+              detail: "Led by **Dr. Hilla Skiba**, Rams on Wall Street is back for the first time in a while. Details coming soon." },
+            { name: "Rocky Mountain Investment Challenge", tag: "Competition", img: W + "/files/theme/rmic.png", url: "https://rockymountaininvestmentchallenge.com/",
+              detail: "Founded by CSU, CU Boulder, and the University of Denver, with a $10,000 first prize." }
           ]},
           { type: "links", eyebrow: "Compete", title: "Competitions", cards: [
             { name: "CFA Global Research Challenge", tag: "Equity research", url: "https://www.cfasociety.org/colorado/about/research-challenge",
