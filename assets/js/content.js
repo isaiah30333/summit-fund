@@ -57,43 +57,43 @@
             { id: "wJEgRjxtRz4", title: "Short Summit Fund Clip", sub: "Summit Fund" }
           ]},
           { type: "names", logos: true, eyebrow: "Alumni", title: "Where Summit alumni work", items: [
-            { name: "Apollo", logo: W + "/files/theme/apollo.svg", note: "Private credit & alternatives" },
-            { name: "Morgan Stanley", logo: W + "/files/theme/morgan-stanley.svg", note: "Equity sales & wealth advisory" },
-            { name: "Goldman Sachs", logo: W + "/files/theme/goldman-sachs.svg", square: true, note: "Asset advisory & controllers" },
-            { name: "J.P. Morgan", logo: W + "/files/theme/jp-morgan.svg", note: "Private banking & asset teams" },
-            { name: "S&P Global", logo: W + "/files/theme/sp-global.svg", note: "Credit ratings & market data" },
+            { name: "Apollo", logo: W + "/files/theme/apollo.svg", note: "Private credit" },
+            { name: "Morgan Stanley", logo: W + "/files/theme/morgan-stanley.svg", note: "Equity sales" },
+            { name: "Goldman Sachs", logo: W + "/files/theme/goldman-sachs.svg", square: true, note: "Asset advisory" },
+            { name: "J.P. Morgan", logo: W + "/files/theme/jp-morgan.svg", note: "Private banking" },
+            { name: "S&P Global", logo: W + "/files/theme/sp-global.svg", note: "Credit ratings" },
             { name: "NEPC", logo: W + "/files/theme/nepc.png", square: true, note: "Portfolio consulting" },
-            { name: "CNA", logo: W + "/files/theme/cna.svg", note: "Commercial underwriting" },
-            { name: "TIAA", logo: W + "/files/theme/tiaa.svg", note: "Retirement & pension assets" },
-            { name: "RBC Capital Markets", logo: W + "/files/theme/rbc.svg", square: true, note: "Investment banking & advisory" },
-            { name: "Mariner", logo: W + "/files/theme/mariner.png", note: "Wealth & investment advisory" },
-            { name: "Sompo", logo: W + "/files/theme/sompo.svg", note: "Specialty & reinsurance" },
-            { name: "Zander Advisory Group", note: "Denver rail & deal advisory" }
+            { name: "CNA", logo: W + "/files/theme/cna.svg", note: "Underwriting" },
+            { name: "TIAA", logo: W + "/files/theme/tiaa.svg", note: "Retirement assets" },
+            { name: "RBC", logo: W + "/files/theme/rbc.svg", square: true, note: "Investment banking" },
+            { name: "Mariner", logo: W + "/files/theme/mariner.png", note: "Wealth advisory" },
+            { name: "Sompo", logo: W + "/files/theme/sompo.svg", note: "Reinsurance" },
+            { name: "Zander Advisory", note: "Deal advisory" }
           ]},
           { type: "donors", eyebrow: "Donors", title: "Thank you to our donors",
             text: "The Summit Fund managers thank the donors who made this program possible and gave students the chance to learn portfolio management first-hand.",
             corporate: [
-              { name: "Hewlett-Packard", logo: W + "/files/theme/hp-1999.svg", square: true, note: "Founding 1999 corporate supporter of the Summit Fund" },
-              { name: "First National Bank", logo: W + "/files/theme/first-national-bank.png", square: true, note: "Northern Colorado banking partner and program supporter" },
+              { name: "Hewlett-Packard", logo: W + "/files/theme/hp-1999.svg", square: true, note: "Founding 1999 supporter" },
+              { name: "First National Bank", logo: W + "/files/theme/first-national-bank.png", square: true, note: "Northern Colorado bank partner" },
               { name: "Burke Cleaners", logo: W + "/files/theme/burke-cleaners.png", square: true, note: "Fort Collins community sponsor" },
-              { name: "Everitt Companies", logo: W + "/files/theme/everitt-companies.png", square: true, note: "Robert & Joyce Everitt, 1999 founding Summit Fund endowment" }
+              { name: "Everitt Companies", logo: W + "/files/theme/everitt-companies.png", square: true, note: "1999 founding endowment" }
             ],
             individual: [
-              { name: "Robert & Joyce Everitt", note: "Everitt Companies, provided the 1999 founding endowment for the Summit Fund." },
-              { name: "Gary Halley", note: "Namesake of CSU's Gary B. Halley Finance Data Lab and Veterans Scholarship." },
-              { name: "Clayton & Kandy Hartman", note: "IFAM Capital co-founder and Fort Collins CSU business philanthropists." },
-              { name: "Mark Burke", note: "Burke Cleaners, Fort Collins entrepreneur and program supporter." },
-              { name: "Michael & Glory Burns", note: "Summit Fund donors and College of Business supporters." },
-              { name: "Thomas Byington", note: "Former Fort Collins banking executive (First Interstate Bank South)." },
-              { name: "Ross Carpenter", note: "Summit Fund donor and program supporter." },
-              { name: "Jerome Carr", note: "Fort Collins bank director (1st State Bank) and program supporter." },
-              { name: "Michael Dellenbach", note: "Dellenbach Motors, Fort Collins dealer principal and bank director." },
-              { name: "Frederick Gardner", note: "Summit Fund donor and program supporter." },
-              { name: "Stephen Joyce", note: "Summit Fund donor and program supporter." },
-              { name: "Elizabeth Murray", note: "Summit Fund donor and program supporter." },
-              { name: "Dennis Sinnett", note: "Sinnett Builders, Fort Collins builder and bank director." },
-              { name: "James Smith", note: "Summit Fund donor and program supporter." },
-              { name: "Christopher Webster", note: "Summit Fund donor and program supporter." }
+              { name: "Robert & Joyce Everitt", note: "Everitt Companies, 1999 founding endowment" },
+              { name: "Gary Halley", note: "Namesake of the Halley Finance Data Lab" },
+              { name: "Clayton & Kandy Hartman", note: "IFAM Capital co-founder, Fort Collins" },
+              { name: "Mark Burke", note: "Burke Cleaners, Fort Collins" },
+              { name: "Michael & Glory Burns", note: "College of Business supporters" },
+              { name: "Thomas Byington", note: "Former First Interstate Bank executive" },
+              { name: "Ross Carpenter", note: "Summit Fund donor and program supporter" },
+              { name: "Jerome Carr", note: "1st State Bank director, Fort Collins" },
+              { name: "Michael Dellenbach", note: "Dellenbach Motors, Fort Collins" },
+              { name: "Frederick Gardner", note: "Summit Fund donor and program supporter" },
+              { name: "Stephen Joyce", note: "Summit Fund donor and program supporter" },
+              { name: "Elizabeth Murray", note: "Summit Fund donor and program supporter" },
+              { name: "Dennis Sinnett", note: "Sinnett Builders, Fort Collins" },
+              { name: "James Smith", note: "Summit Fund donor and program supporter" },
+              { name: "Christopher Webster", note: "Summit Fund donor and program supporter" }
             ]
           }
         ]
@@ -119,26 +119,26 @@
       policy: {
         head: { eyebrow: "Investment Policy", title: "How we pick stocks", text: "Every position starts with the same screens, fits inside the same limits, and goes through the same vote." },
         sections: [
-          { type: "table", eyebrow: "Screens", title: "What a stock has to pass", columns: ["Criterion", "Threshold", "What it means"], rows: [
-            ["Market Cap", "$200M+", "Share price × shares of at least $200M, avoiding illiquid micro-caps."],
-            ["ROIC & ROE", "> Median", "Capital efficiency and equity return above the sector median."],
-            ["Analyst Ratings", "25%+ Buy", "25%+ Buy and ≤25% Sell ratings across 8+ covering analysts."],
-            ["5Y EPS Growth", "> Median", "Consensus 5-year projected EPS growth above the sector median."],
-            ["5Y Fwd PEG", "≤ Median", "Forward P/E to 5-year EPS growth at or below sector median; 2 rules may be waived by vote."]
+          { type: "table", eyebrow: "Screens", title: "What a stock has to pass", intro: "Medians are sector medians. Two screens can be waived by a fund vote.", columns: ["Criterion", "Threshold", "What it means"], rows: [
+            ["Market Cap", "$200M+", "No illiquid micro-caps"],
+            ["ROIC & ROE", "> Median", "Above the sector median"],
+            ["Analyst Ratings", "25%+ Buy", "≤25% Sell, 8+ analysts"],
+            ["5Y EPS Growth", "> Median", "Consensus, above the median"],
+            ["5Y Fwd PEG", "≤ Median", "At or below the median"]
           ]},
           { type: "tiles", eyebrow: "Constraints", title: "Portfolio limits", items: [
-            { k: "Target Beta", v: "≤ 1.3", note: "All-equity volatility (20–30% std dev) with target beta ≤ 1.3 vs. the S&P 500." },
-            { k: "Position Cap", v: "≤ 5.0%", note: "Max 5.0% of total fund assets in any single security at purchase." },
-            { k: "Allocation", v: "95% / 5%", note: "95% equities, 0% fixed income, 5% cash (±10 pp tactical band)." },
-            { k: "Time Horizon", v: "5+ Years", note: "Long-term horizon held in the CSU Foundation trust; S&P 500 + T-bill benchmark." }
+            { k: "Target Beta", v: "≤ 1.3", note: "Versus the S&P 500" },
+            { k: "Position Cap", v: "≤ 5.0%", note: "Per stock, at purchase" },
+            { k: "Allocation", v: "95% / 5%", note: "Equities / cash, ±10 pp" },
+            { k: "Time Horizon", v: "5+ Years", note: "S&P 500 + T-bill benchmark" }
           ]},
           { type: "steps", eyebrow: "Process", title: "From idea to trade", items: [
-            "Sector team screens the universe and checks MSCI ESG",
-            "DCF and relative valuation reviewed by the MD and advisor",
-            "Full fund debates the pitch and votes",
-            "CSU Foundation executes; weekly Bloomberg & Morningstar review"
+            "Screen + MSCI ESG check",
+            "MD & advisor review",
+            "Full fund votes",
+            "Foundation executes"
           ]},
-          { type: "cta", eyebrow: "Documents", title: "Read the full policy", text: "The prospectus covers the full investment policy statement; the annual report shows how it played out.", buttons: [
+          { type: "cta", eyebrow: "Documents", title: "Read the full policy", text: "The full policy and how it played out.", buttons: [
             { label: "Prospectus (PDF)", href: LINKS.prospectus, primary: true, external: true },
             { label: "Annual report (PDF)", href: LINKS.annualReport, external: true }
           ]}
@@ -168,29 +168,29 @@
           ]},
           { type: "links", eyebrow: "Compete", title: "Competitions", cards: [
             { name: "CFA Global Research Challenge", tag: "Equity research", url: "https://www.cfasociety.org/colorado/about/research-challenge",
-              detail: "Teams pitch a public company to CIOs; CSU placed 2nd in Denver.",
+              detail: "Pitch a stock to CIOs. CSU placed 2nd in Denver.",
               aux: [["LinkedIn", "https://www.linkedin.com/company/cfa-colorado/"], ["Instagram", "https://www.instagram.com/cfasocietycolorado/"]] },
             { name: "JA Stock Market Challenge", tag: "Live trading", url: "https://www.jarockymountain.org/ja-stock-market-challenge/",
-              detail: "Annual Northern Colorado live trading fundraiser supporting JA schools.",
+              detail: "Northern Colorado live trading fundraiser.",
               aux: [["LinkedIn", "https://www.linkedin.com/company/jarockymountain"], ["Instagram", "https://www.instagram.com/jarockymountain/"]] },
             { name: "Rotman Trading Competition", tag: "International", url: "https://ritc.rotman.utoronto.ca/",
-              detail: "Annual international trading competition hosted in Toronto." }
+              detail: "International trading competition in Toronto." }
           ]},
           { type: "links", eyebrow: "Network", title: "Summits", cards: [
             { name: "CSU Finance and Real Estate Summit", tag: "Denver", url: "https://biz.colostate.edu/centers-institutes/everitt-real-estate-center",
-              detail: "Denver industry summit hosted with the CSU Everitt Real Estate Center." },
+              detail: "Denver summit with the Everitt Real Estate Center." },
             { name: "Quinnipiac G.A.M.E. Forum", tag: "New York", url: "https://qgame.qu.edu/",
-              detail: "Annual New York forum connecting student funds with industry leaders." }
+              detail: "New York forum for student-run funds." }
           ]},
           { type: "links", eyebrow: "On campus", title: "Clubs & resources", cards: [
             { name: "CSU Finance Club", tag: "Club", url: "https://ramsfinance.weebly.com/finance-club.html",
-              detail: "Open to all CSU majors interested in markets and finance careers.",
+              detail: "Open to every major interested in markets.",
               aux: [["LinkedIn", "https://www.linkedin.com/in/finance-club-at-colorado-state-university-b0438877/"], ["Instagram", "https://www.instagram.com/financeclub_csu/"], ["Constitution", LINKS.constitution]] },
             { name: "Ram Street", tag: "Publication", url: "https://www.ramstreet.org/",
-              detail: "Campus finance publication and market newsletter run by CSU students.",
+              detail: "Student-run finance publication and newsletter.",
               aux: [["LinkedIn", "https://www.linkedin.com/company/ram-street-csu/"], ["Instagram", "https://www.instagram.com/ramstreet_csu/"]] },
             { name: "Professional Clothing Fund", tag: "Resource", url: "https://bizcareers.colostate.edu/resources/college-of-business-professional-clothing-fund/",
-              detail: "Up to a $325 stipend for College of Business students' interview and career fair attire." }
+              detail: "Up to $325 for interview and career fair attire." }
           ]}
         ]
       },
@@ -200,10 +200,10 @@
         head: { eyebrow: "Join", title: "Apply to the fund", text: "Recruiting opens in October and March. Bring a resume and a few short answers." },
         sections: [
           { type: "tiles", eyebrow: "Requirements", title: "Before you apply", items: [
-            { k: "Course", v: "FIN 486", note: "Summit Investment Fund Practicum (3 credits)." },
-            { k: "Prerequisite", v: "FIN 355", note: "Completion of FIN 355 (Investments) with an A or B, before enrolling." },
-            { k: "GPA", v: "3.2+", note: "3.2 or higher preferred, though strong interest and preparation carry weight." },
-            { k: "Application", v: "Resume", note: "Recruiting opens in October and March with a resume and short-answer form." }
+            { k: "Course", v: "FIN 486", note: "Practicum, 3 credits" },
+            { k: "Prerequisite", v: "FIN 355", note: "Investments, with an A or B" },
+            { k: "GPA", v: "3.2+", note: "Preferred, not required" },
+            { k: "Application", v: "Resume", note: "Plus a short-answer form" }
           ]},
           { type: "cta", eyebrow: "Apply", title: "Ready to manage real money?", text: "Questions first? Reach out to the faculty advisor, **Dr. Hilla Skiba**.", buttons: [
             { label: "Open the application", href: LINKS.apply, primary: true, external: true },
@@ -212,9 +212,9 @@
           ]},
           { type: "photos", eyebrow: "Inside the lab", title: "Where the fund meets", cards: [
             { title: "Pioneers & Veterans Finance Lab", meta: "Rockwell Hall", img: W + "/files/theme/apply-lab.jpg", pos: "center 45%",
-              text: "Class meets in the Bloomberg-equipped finance lab in Rockwell Hall." },
+              text: "Bloomberg-equipped lab in Rockwell Hall." },
             { title: "Recruitment deck", meta: "Spring 2027", img: W + "/files/theme/apply-deck.png", pos: "center 30%",
-              text: "Everything about the roles, the class and the timeline in one deck.", href: LINKS.recruitmentDeck, link: "Open the deck", external: true }
+              text: "Roles, class and timeline in one deck.", href: LINKS.recruitmentDeck, link: "Open the deck", external: true }
           ]}
         ]
       }
