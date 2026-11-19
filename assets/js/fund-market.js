@@ -6,6 +6,15 @@
   var esc = window.SiteUtil.esc;
   var root = document.documentElement;
   var current = M.symbols.Macro[0];                 // [TradingView symbol, short name, label]
+  var view = "overview";                            // overview: clean candles · technicals: indicators
+  try { if (localStorage.getItem("sf-chart-view") === "technicals") view = "technicals"; } catch (e) {}
+
+  // Technicals: volume, VWAP, 50-day EMA and 50-day SMA (TradingView built-in studies)
+  var STUDIES = [
+    { id: "VWAP@tv-basicstudies" },
+    { id: "MAExp@tv-basicstudies", inputs: { length: 50 } },
+    { id: "MASimple@tv-basicstudies", inputs: { length: 50 } }
+  ];
 
   function isDark() {
     var t = root.getAttribute("data-theme");
@@ -40,7 +49,12 @@
       autosize: true, symbol: current[0], interval: "D", timezone: "America/New_York",
       theme: theme, style: "1", locale: "en",
       backgroundColor: theme === "dark" ? "rgba(22,21,17,1)" : "rgba(255,255,255,1)",
-      hide_side_toolbar: true, allow_symbol_change: true, support_host: "https://www.tradingview.com"
+      hide_side_toolbar: true, allow_symbol_change: true, support_host: "https://www.tradingview.com",
+      hide_volume: view !== "technicals",
+      studies: view === "technicals" ? STUDIES : []
+    });
+    document.querySelectorAll("#view-seg [data-view]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-view") === view ? "true" : "false");
     });
   }
 
@@ -51,6 +65,15 @@
     var sym = b.getAttribute("data-sym");
     Object.keys(M.symbols).forEach(function (g) { M.symbols[g].forEach(function (s) { if (s[0] === sym) current = s; }); });
     renderGroups(); renderChart();
+  });
+
+  var seg = document.getElementById("view-seg");
+  if (seg) seg.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-view]");
+    if (!b || b.getAttribute("data-view") === view) return;
+    view = b.getAttribute("data-view");
+    try { localStorage.setItem("sf-chart-view", view); } catch (err) {}
+    renderChart();
   });
 
   // the heat map calls this when a stock is clicked: chart it here

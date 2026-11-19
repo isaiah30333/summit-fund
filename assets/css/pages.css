@@ -434,6 +434,8 @@ code { border-bottom-width: 1px; }
 .seg button[aria-pressed="true"] { background: var(--surface); color: var(--accent); box-shadow: var(--shadow); font-weight: 600; }
 .seg button[aria-selected="true"] { color: var(--accent); }
 .chart-legend { display: flex; gap: 12px; font-family: var(--font-mono); }
+.view-seg { margin-left: auto; }                         /* Overview / Technicals */
+.lg.ta-vwap { color: #7c5cd6; } .lg.ta-ema { color: #2f80ed; } .lg.ta-sma { color: #e08a1e; } .lg.ta-vol { color: var(--text-muted); }
 .chart-tv:hover { color: var(--text); }
 .tv-chart { height: clamp(340px, 55vh, 560px); }
 
