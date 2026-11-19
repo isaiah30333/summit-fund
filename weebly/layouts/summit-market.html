@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market · Summit Fund</title>
+  <meta name="description" content="Summit Fund: Colorado State University's student-run investment fund since 1999.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="/files/theme/sf-config.js?v=mock21"></script>
+  <script src="/files/theme/sf-site.js?v=mock21"></script>
+  <!-- the words on every page live in content.js -->
+  <script src="/files/theme/sf-content.js?v=mock21"></script>
+  <!-- TradingView's open-source charting library: candles with the expected-move lines -->
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/dist/d3-delaunay.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/dist/d3-hierarchy.min.js"></script>
+</head>
+<body>
+  <!-- our styles load after the ones Weebly adds to <head>, so ours win -->
+  <link rel="stylesheet" href="/files/theme/sf-base.css?v=mock21">
+  <link rel="stylesheet" href="/files/theme/sf-pages.css?v=mock21">
+  <link rel="stylesheet" href="/files/theme/sf-drawer.css?v=mock21">
+  <link rel="stylesheet" href="/files/theme/sf-sections.css?v=mock21">
+  <link rel="stylesheet" href="/files/theme/sf-weebly.css">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="container page">
+    <div class="page-head reveal" id="page-head"></div>
+    <div class="sheet sheet--page">
+      <section class="chart-wrap card" aria-label="Price chart">
+        <div class="chart-bar">
+          <div class="chart-title"><strong id="chart-sym">SPY</strong> <span class="muted" id="chart-name"></span></div>
+          <div class="chart-em mono" id="chart-em"></div>
+          <a class="muted small chart-tv" id="chart-tv" href="https://www.tradingview.com/" target="_blank" rel="noopener">Open in TradingView ↗</a>
+        </div>
+        <div class="sym-groups" id="sym-groups"></div>
+        <div class="chart-tools">
+          <div class="seg seg-sm" id="iv-seg" role="group" aria-label="Candle interval">
+            <button type="button" data-iv="1m">1m</button>
+            <button type="button" data-iv="3m">3m</button>
+            <button type="button" data-iv="5m">5m</button>
+            <button type="button" data-iv="15m">15m</button>
+            <button type="button" data-iv="1h">1h</button>
+            <button type="button" data-iv="4h">4h</button>
+            <button type="button" data-iv="1D">1D</button>
+            <button type="button" data-iv="1W">1W</button>
+          </div>
+          <div class="seg seg-sm" id="hz-seg" role="group" aria-label="Expected move horizon">
+            <button type="button" data-tf="daily">Daily</button>
+            <button type="button" data-tf="weekly">Weekly</button>
+            <button type="button" data-tf="monthly">Monthly</button>
+          </div>
+          <div class="seg seg-sm view-seg" id="view-seg" role="group" aria-label="Chart view">
+            <button type="button" data-view="overview">Overview</button>
+            <button type="button" data-view="technicals" title="Volume, VWAP, 50 EMA, 50 SMA, Bollinger Bands">Technicals</button>
+          </div>
+          <span class="muted small chart-legend" id="chart-legend"></span>
+        </div>
+        <div id="tv-chart" class="tv-chart"></div>
+      </section>
+
+      <section class="heat-wrap card" id="heat" aria-label="S&amp;P 500 heat map" hidden>
+        <div class="chart-bar">
+          <div class="chart-title"><strong>S&amp;P 500 heat map</strong> <span class="muted small" id="heat-meta"></span></div>
+          <div class="heat-legend mono small" aria-hidden="true"><span>−3%</span><span class="heat-scale"></span><span>+3%</span></div>
+        </div>
+        <div class="heat-stage" id="heat-stage">
+          <canvas id="heat-canvas" role="img" aria-label="S&amp;P 500 heat map"></canvas>
+          <div class="heat-tip" id="heat-tip" hidden></div>
+        </div>
+        <p class="heat-note muted small">Cell size = weight in the S&amp;P 500, color = today's change. Click a stock to chart it above.</p>
+      </section>
+
+      <!-- top stories + economic calendar (TradingView) -->
+      <div class="feeds" id="feeds">
+        <section class="feed card" aria-label="Top stories">
+          <div class="chart-bar"><div class="chart-title"><strong>Top stories</strong> <span class="muted small">Market news</span></div></div>
+          <div class="feed-body" id="feed-news"></div>
+        </section>
+        <section class="feed card" aria-label="Economic calendar">
+          <div class="chart-bar"><div class="chart-title"><strong>Economic calendar</strong> <span class="muted small">U.S. · medium &amp; high impact</span></div></div>
+          <div class="feed-body" id="feed-cal"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="/files/theme/sf-sections.js?v=mock21" data-page="market"></script>
+  <script src="/files/theme/sf-fund-market.js?v=mock21"></script>
+  <script src="/files/theme/sf-heatmap.js?v=mock21"></script>
+  <script src="/files/theme/sf-market-feeds.js?v=mock21"></script>
+  <div id="wsite-hidden" aria-hidden="true">{content}</div>
+</body>
+</html>

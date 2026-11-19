@@ -1,0 +1,10 @@
+/* Weebly only: the RAMS Finance theme (main_style.css) styles bare html / body / .nav / h2 / p a.
+   These put our layout back. Loaded last. */
+html, body { height: auto !important; }      /* theme sets 100%: the sticky header would scroll away after one screen */
+body { font-weight: 400; }                    /* theme sets 500 */
+.site-header .nav { display: flex; vertical-align: baseline; }
+.site-header .nav ul { float: none; max-width: none; overflow: visible; }
+.site-header .nav li { display: block; margin: 0; }
+p a { font-weight: inherit; text-decoration: inherit; }
+.brand-mark--img img { transform: none; }    /* favicon.png is already cropped to the circle */
+#wsite-hidden { display: none !important; }
