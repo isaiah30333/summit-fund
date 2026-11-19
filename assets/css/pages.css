@@ -180,7 +180,7 @@ code { border-bottom-width: 1px; }
 }
 .about-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .about-list li { position: relative; padding-left: 18px; font-size: .95rem; line-height: 1.5; color: var(--text-muted); }
-.about-list li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1.5px; background: var(--accent); }
+.about-list li::before { content: ""; position: absolute; left: 1px; top: calc(.75em - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }   /* round bullets */
 .about-list strong { color: var(--text); font-weight: 600; }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li { padding: 6px 12px; border: 1px solid var(--border-strong); border-radius: 999px; background: var(--bg-subtle); font-size: .85rem; }
