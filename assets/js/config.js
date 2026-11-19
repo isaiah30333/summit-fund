@@ -11,10 +11,10 @@ window.SITE = {
   linkedin: "https://www.linkedin.com/company/summit-fund-csu-college-of-business/",
 
   nav: [
-    { label: "Overview",          href: "index.html" },
+    { label: "Home",              href: "index.html" },
     { label: "Market",            href: "market.html" },
-    { label: "Investment Policy", href: "policy.html" },
-    { label: "Competitions",      href: "competitions.html" },
+    { label: "IPS",               href: "policy.html" },
+    { label: "Info",              href: "competitions.html" },
     { label: "Join",              href: "join.html" }
   ],
   headerCta: { label: "Apply", href: "join.html" },

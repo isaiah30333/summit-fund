@@ -117,7 +117,7 @@
 
       /* ------------------------------------------------------------ Investment Policy */
       policy: {
-        head: { eyebrow: "Investment Policy", title: "How we pick stocks", text: "Every position starts with the same screens, fits inside the same limits, and goes through the same vote." },
+        head: { eyebrow: "IPS · Investment Policy Statement", title: "How we pick stocks", text: "Every position starts with the same screens, fits inside the same limits, and goes through the same vote." },
         sections: [
           { type: "table", eyebrow: "Screens", title: "What a stock has to pass", intro: "Medians are sector medians. Two screens can be waived by a fund vote.", columns: ["Criterion", "Threshold", "What it means"], rows: [
             ["Market Cap", "$200M+", "No illiquid micro-caps"],
@@ -147,7 +147,7 @@
 
       /* ------------------------------------------------------------ Competitions */
       competitions: {
-        head: { eyebrow: "Competitions", title: "Beyond the classroom", text: "Pitch competitions, trading challenges, summits, and the clubs that connect them." },
+        head: { eyebrow: "Info", title: "Beyond the classroom", text: "Pitch competitions, trading challenges, summits, and the clubs that connect them." },
         sections: [
           { type: "links", eyebrow: "Featured", title: "Featured this year", cards: [
             { name: "Rams on Wall Street", tag: "New York", img: "assets/img/csu-ram.webp",
