@@ -287,13 +287,25 @@ a.card:hover, .card.hover:hover { border-color: var(--border-strong); box-shadow
 @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
 @media (max-width: 400px) { .grid-3 { grid-template-columns: 1fr; } }
 
+/* small card labels ("Student-Managed Fund", "New York"…): plain bronze small caps,
+   the same style as the box headings, no outline */
 .tag {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: .7rem;
-  padding: 3px 8px;
-  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+/* status badges (the Markets "M", Launchpad "App") keep a small outline so they read as badges */
+.em-table .tag, .fineprint .tag, .launch-tag {
+  padding: 1px 6px;
   border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text-muted);
 }
 
